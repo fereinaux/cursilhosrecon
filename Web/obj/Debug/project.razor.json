@@ -1,0 +1,23 @@
+{
+<<<<<<< HEAD
+  "FilePath": "c:\\Users\\User\\source\\repos\\sysigreja\\Web\\Web.csproj",
+=======
+  "FilePath": "c:\\Users\\User\\source\\repos\\SysIgreja\\Web\\Web.csproj",
+>>>>>>> 80495c8b8c10fef5b1b185455b7ef50cc662c566
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 703
+  },
+  "RootNamespace": null,
+  "Documents": [],
+  "SerializationFormat": "0.2"
+}
