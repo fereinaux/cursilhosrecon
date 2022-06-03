@@ -133,7 +133,7 @@ namespace SysIgreja.Controllers
         public ActionResult Coordenador()
         {
             ViewBag.Title = "Sistema de Gestão";
-            int eventoId = (eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
+            int eventoId = (eventosBusiness.GetEventoAtivo().FirstOrDefault() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
             var user = GetApplicationUser();
             var equipanteEvento = equipesBusiness.GetEquipanteEventoByUser(eventoId, user.Id);
             var membrosEquipe = equipesBusiness.GetMembrosEquipe(eventoId, equipanteEvento.Equipe);
@@ -166,7 +166,7 @@ namespace SysIgreja.Controllers
             var presenca = equipesBusiness.GetPresenca(ReuniaoId).Select(x => x.EquipanteEventoId).ToList();
 
             var user = GetApplicationUser();
-            var eventoId = (eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
+            var eventoId = (eventosBusiness.GetEventoAtivo().FirstOrDefault() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
 
             var result = equipesBusiness
                 .GetMembrosEquipe(eventoId, equipesBusiness.GetEquipanteEventoByUser(eventoId, user.Id).Equipe).ToList().Select(x => new PresencaViewModel

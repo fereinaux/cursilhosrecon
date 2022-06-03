@@ -27,7 +27,7 @@ namespace Data.Entities.Base
 
         public string Email { get; set; }
         public string Fone { get; set; }
-        public string Profissão { get; set; }
+        public string Profissao { get; set; }
         public string Instagram { get; set; }
         public bool HasRestricaoAlimentar { get; set; }
         public string RestricaoAlimentar { get; set; }

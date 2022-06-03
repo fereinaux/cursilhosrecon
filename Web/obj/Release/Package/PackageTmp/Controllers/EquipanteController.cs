@@ -61,8 +61,8 @@ namespace SysIgreja.Controllers
             this.meioPagamentoBusiness = meioPagamentoBusiness;
             this.reunioesBusiness = reunioesBusiness;
             this.datatableService = datatableService;
-            var eventoAtivo = eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().ToList().LastOrDefault();
-            qtdReunioes = reunioesBusiness.GetReunioes(eventosBusiness.GetEventoAtivo().Id).Where(x => x.DataReuniao < System.DateTime.Today).Count();
+            var eventoAtivo = eventosBusiness.GetEventoAtivo().FirstOrDefault() ?? eventosBusiness.GetEventos().ToList().LastOrDefault();
+            qtdReunioes = reunioesBusiness.GetReunioes(eventosBusiness.GetEventoAtivo().FirstOrDefault().Id).Where(x => x.DataReuniao < System.DateTime.Today).Count();
             mapper = new MapperRealidade(qtdReunioes, eventoAtivo.Id).mapper;
         }
 
@@ -121,7 +121,7 @@ namespace SysIgreja.Controllers
             }
             else
             {
-                var eventoId = model.EventoId ?? eventosBusiness.GetEventoAtivo().Id;
+                var eventoId = model.EventoId ?? eventosBusiness.GetEventoAtivo().FirstOrDefault().Id;
                 var result = equipantesBusiness.GetEquipantes();
 
                 var totalResultsCount = result.Count();
@@ -268,7 +268,7 @@ namespace SysIgreja.Controllers
         public ActionResult GetEquipante(int Id)
         {
             var result = equipantesBusiness.GetEquipanteById(Id);
-            int eventoId = (eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
+            int eventoId = (eventosBusiness.GetEventoAtivo().FirstOrDefault() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First()).Id;
 
             result.Nome = UtilServices.CapitalizarNome(result.Nome);
             result.Apelido = UtilServices.CapitalizarNome(result.Apelido);
@@ -311,7 +311,7 @@ namespace SysIgreja.Controllers
         public ActionResult InscricaoConcluida(int Id)
         {
             Equipante equipante = equipantesBusiness.GetEquipanteById(Id);
-            var eventoAtual = eventosBusiness.GetEventoAtivo();
+            var eventoAtual = eventosBusiness.GetEventoAtivo().FirstOrDefault();
             ViewBag.Configuracao = configuracaoBusiness.GetConfiguracao();
             ViewBag.Participante = new InscricaoConcluidaViewModel
             {

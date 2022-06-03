@@ -93,21 +93,7 @@
         var config = {}
         $.fn.modal.Constructor.prototype.enforceFocus = function () { };
         $.fn.modal.Constructor.prototype._enforceFocus = function () { };
-        $.ajax({
-            url: "/Configuracao/GetConfiguracao/",
-            datatype: "json",
-            type: "GET",
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                config = data.Configuracao
-                $('title').text(`${config.Titulo} | ${$('#title').text()}`)
-                if (config.LogoId) {
-                    $('link[rel="icon"]').attr('href', `data:image/png;base64,${config.Logo}`)
-                    $('#home-button-logo img').attr('src', `data:image/png;base64,${config.Logo}`)
-                }
-                    $('#home-button-logo').css('display', 'block')
-            }
-        });
+        getConfig(null)
     </script>
     <!-- Handler for local scripts -->
     @RenderSection("scripts", required: false)

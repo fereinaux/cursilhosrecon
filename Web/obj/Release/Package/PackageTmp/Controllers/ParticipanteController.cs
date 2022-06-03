@@ -106,6 +106,8 @@ namespace SysIgreja.Controllers
         {
             ViewBag.Title = "Participantes";
             GetEventos();
+            GetConfiguracao();
+            GetCampos();
             ViewBag.MeioPagamentos = meioPagamentoBusiness.GetAllMeioPagamentos().ToList();
             ViewBag.Valor = (int)ValoresPadraoEnum.Inscricoes;
             ViewBag.ContasBancarias = contaBancariaBusiness.GetContasBancarias().ToList()
@@ -135,6 +137,8 @@ namespace SysIgreja.Controllers
                 FoneConvite = x.FoneConvite,
                 FoneContato = x.FoneContato,
                 NomeContato = x.NomeContato,
+                Carona = x.Carona,
+                Profissao = x.Profissao,
                 FoneMae = x.FoneMae,
                 FonePai = x.FonePai,
                 HasAlergia = x.HasAlergia,
@@ -197,7 +201,7 @@ namespace SysIgreja.Controllers
 
             var dadosAdicionais = new
             {
-                Circulo = circulosBusiness.GetCirculosComParticipantes(result.EventoId).Where(x => x.ParticipanteId == Id)?.FirstOrDefault()?.Circulo?.Cor.GetDescription() ?? "",
+                //Circulo = circulosBusiness.GetCirculosComParticipantes(result.EventoId).Where(x => x.ParticipanteId == Id)?.FirstOrDefault()?.Circulo?.Cor.GetDescription() ?? "",
                 Status = result.Status.GetDescription(),
                 Quarto = quartosBusiness.GetQuartosComParticipantes(result.EventoId, TipoPessoaEnum.Participante).Where(x => x.ParticipanteId == Id).FirstOrDefault()?.Quarto?.Titulo ?? "",
                 QuartoAtual = new
@@ -514,48 +518,13 @@ namespace SysIgreja.Controllers
         }
 
         [HttpPost]
-        public ActionResult ToggleBoleto(int ParticipanteId)
-        {
-            participantesBusiness.TogglePendenciaBoleto(ParticipanteId);
-
-            return new HttpStatusCodeResult(200);
-        }
-
-        [HttpPost]
         public ActionResult ToggleContato(int ParticipanteId)
         {
             participantesBusiness.TogglePendenciaContato(ParticipanteId);
 
             return new HttpStatusCodeResult(200);
         }
-
-        [HttpPost]
-        public ActionResult GetListaTelefonica(int EventoId)
-        {
-            var result = participantesBusiness
-                .GetParticipantesByEvento(EventoId)
-                .Where(x => x.Status != StatusEnum.Cancelado)
-                .ToList()
-                .Select(x => new
-                {
-                    Id = x.Id,
-                    Nome = UtilServices.CapitalizarNome(x.Nome),
-                    Status = x.Status.GetDescription(),
-                    Evento = $"{x.Evento.Numeracao.ToString()}º {x.Evento.TipoEvento.GetDescription()}",
-                    Sexo = x.Sexo.GetDescription(),
-                    Fone = x.Fone,
-                    x.NomeMae,
-                    x.FoneMae,
-                    x.NomePai,
-                    x.FonePai,
-                    x.NomeConvite,
-                    x.FoneConvite,
-                    PendenciaContato = x.PendenciaContato,
-                    Padrinho = x.Padrinho?.Nome
-                }); ;
-
-            return Json(new { data = result }, JsonRequestBehavior.AllowGet);
-        }
+    
 
         [HttpPost]
         public ActionResult CancelarInscricao(int Id)

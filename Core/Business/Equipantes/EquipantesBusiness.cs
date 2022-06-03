@@ -68,7 +68,7 @@ namespace Core.Business.Equipantes
                 {
                     foreach (var etiqueta in model.Etiquetas)
                     {
-                        ParticipantesEtiquetasRepo.Insert(new ParticipantesEtiquetas { EquipanteId = model.Id, EventoId = eventoAtivo?.Id ?? null, EtiquetaId = Int32.Parse(etiqueta) });
+                        ParticipantesEtiquetasRepo.Insert(new ParticipantesEtiquetas { EquipanteId = model.Id, EventoId = eventoAtivo?.FirstOrDefault().Id ?? null, EtiquetaId = Int32.Parse(etiqueta) });
                     }
 
                 }

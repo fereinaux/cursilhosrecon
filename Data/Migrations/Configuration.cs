@@ -3,6 +3,7 @@ namespace Data.Migrations
     using Data.Context;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Data.Entity.Validation;
@@ -33,27 +34,36 @@ namespace Data.Migrations
         {
             if (!context.Configuracoes.Any())
             {
+                Array values = System.Enum.GetValues(typeof(TiposEventoEnum));
 
-                context.Configuracoes.AddOrUpdate(x => x.Id,
+                foreach (TiposEventoEnum val in values)
+                {
+                    context.Configuracoes.AddOrUpdate(x => x.Id,
                   new Data.Entities.Configuracao
                   {
-                      Id = 1,
+                      Id = (int)val,
                       Titulo = "SysIgreja",
                       CorBotao = "#5f6567",
                       CorLoginBox = "#1b1918",
                       CorHoverBotao = "#424648",
                       CorScroll = "#2d2f2f",
                       CorHoverScroll = "#0a0a0a",
-                      TipoCirculo = TipoCirculoEnum.Aleatorio
+                      TipoCirculo = TipoCirculoEnum.Aleatorio,
+                      TipoEvento = val
                   });
 
-                context.ConfiguracaoCampos.AddOrUpdate(x => x.Campo,
-                    new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Nome },
-                    new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Apelido },
-                    new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.DataNascimento },
-                    new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Email },
-                    new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Fone }
-                );
+                    context.ConfiguracaoCampos.AddOrUpdate(x => x.Campo,
+              new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Nome, ConfiguracaoId = (int)val, },
+              new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Apelido, ConfiguracaoId = (int)val, },
+              new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.DataNascimento, ConfiguracaoId = (int)val, },
+              new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Email, ConfiguracaoId = (int)val, },
+              new Data.Entities.ConfiguracaoCampos { Campo = CamposEnum.Fone, ConfiguracaoId = (int)val, }
+          );
+                }
+
+
+
+
             }
 
             context.MeioPagamentos.AddOrUpdate(x => x.Descricao,

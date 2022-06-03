@@ -11,6 +11,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using Utils.Enums;
+using Utils.Extensions;
 
 namespace Core.Business.Participantes
 {
@@ -187,6 +188,8 @@ namespace Core.Business.Participantes
             participante.FonePai = model.FonePai;
             participante.NomeMae = model.NomeMae;
             participante.FoneMae = model.FoneMae;
+            participante.Carona = model.Carona;
+            participante.Profissao = model.Profissao;
             participante.NomeConvite = model.NomeConvite;
             participante.FoneConvite = model.FoneConvite;
             participante.NomeContato = model.NomeContato;
@@ -221,6 +224,8 @@ namespace Core.Business.Participantes
 
         private Participante MapCreateParticipante(PostInscricaoModel model)
         {
+            var evento  = eventosBusiness.GetEventoById(model.EventoId);
+
             return new Participante
             {
                 Nome = model.Nome,
@@ -246,8 +251,10 @@ namespace Core.Business.Participantes
                 FoneConvite = model.FoneConvite,
                 NomeContato = model.NomeContato,
                 FoneContato = model.FoneContato,
+                Carona = model.Carona,
+                Profissao = model.Profissao,
                 ReferenciaPagSeguro = Guid.NewGuid().ToString(),
-                Sexo = model.Sexo,
+                Sexo = evento.TipoEvento.GetGenero(),
                 Status = model.Status == "Espera" ? StatusEnum.Espera : StatusEnum.Inscrito,
                 HasAlergia = model.HasAlergia,
                 Alergia = model.HasAlergia ? model.Alergia : null,

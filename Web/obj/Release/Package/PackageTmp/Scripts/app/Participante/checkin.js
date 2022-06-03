@@ -59,6 +59,9 @@ function PostParticipante() {
                         Id: $("#participante-id").val(),
                         Checkin: $("#participante-checkin").val(),
                         CancelarCheckin: false,
+                        Carona: $("input[type=radio][name=participante-carona]:checked").val(),
+                        Profissao: $(`#participante-profissao`).val(),
+                        Instagram: $(`#participante-instagram`).val(),
                         Nome: $(`#participante-nome`).val(),
                         Apelido: $(`#participante-apelido`).val(),
                         DataNascimento: moment($("#participante-data-nascimento").val(), 'DD/MM/YYYY', 'pt-br').toJSON(),
@@ -186,6 +189,9 @@ function GetParticipante() {
                 $(`#participante-fone-mae`).val(data.Participante.FoneMae);
                 $(`#participante-cep`).val(data.Participante.CEP);
                 $(`#participante-logradouro`).val(data.Participante.Logradouro);
+                $(`#participante-instagram`).val(data.Participante.Instagram);
+                $(`#participante-profissao`).val(data.Participante.Profissao);
+                $(`input[type=radio][name=participante-carona][value=${data.Participante.Carona}]`).iCheck('check');
                 $(`#participante-bairro`).val(data.Participante.Bairro);
                 $(`#participante-cidade`).val(data.Participante.Cidade);
                 $(`#participante-estado`).val(data.Participante.Estado);

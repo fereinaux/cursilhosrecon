@@ -274,6 +274,14 @@
                             <input type="text" class="form-control " id="participante-instagram" data-field="Instagram" />
                         </div>
                     }
+                    @if (ViewBag.Campos.Contains(CamposEnum.Profissao.GetDescription()))
+                    {
+                        <div class="col-sm-6 p-w-md m-t-md text-center">
+                            <h5>Profissão</h5>
+
+                            <input type="text" class="form-control " id="participante-profissao" data-field="Profissão" />
+                        </div>
+                    }
                     @if (ViewBag.Campos.Contains(CamposEnum.Endereco.GetDescription()))
                     {
                         <div class="dados-participante-contato">
@@ -401,6 +409,16 @@
                             </div>
                         }
                     </div>
+
+
+                    @if (ViewBag.Campos.Contains(CamposEnum.Onibus.GetDescription()))
+                    {
+                        <div class="col-sm-6 p-w-md m-t-md text-center">
+                            <h5>Irá no Ônibus saindo da Igreja?</h5>
+                            <div class="radio i-checks-green inline"><label> <input type="radio" id="sim" value="true" name="participante-carona"> <i></i> Sim </label></div>
+                            <div class="radio i-checks-green inline"><label> <input type="radio" id="nao" checked="" value="false" name="participante-carona"> <i></i> Não </label></div>
+                        </div>
+                    }
 
                     @if (ViewBag.Campos.Contains(CamposEnum.Medicacao.GetDescription()))
                     {

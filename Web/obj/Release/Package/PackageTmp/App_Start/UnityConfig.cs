@@ -59,6 +59,7 @@ namespace Web
             container.RegisterType<IGenericRepository<ConfiguracaoCampos>, GenericRepository<ConfiguracaoCampos>>();
             container.RegisterType<IGenericRepository<Carona>, GenericRepository<Carona>>();
             container.RegisterType<IGenericRepository<CaronaParticipante>, GenericRepository<CaronaParticipante>>();
+            container.RegisterType<IGenericRepository<CirculoDirigentes>, GenericRepository<CirculoDirigentes>>();
 
             container.RegisterType<IEmailSender, EmailSender>();
             container.RegisterType<IDatatableService, DatatableService>();

@@ -19,6 +19,7 @@ function getEquipantesExcel() {
 }
 
 function GetResultadosAdmin() {
+    getConfigTipoEvento($("#eventoid option:selected").data('tipoevento'))
     $.ajax({
         url: '/Home/GetResultadosAdmin',
         datatype: "json",
@@ -63,19 +64,19 @@ function GetResultadosAdmin() {
                                                             </div>
                                                             `
 
-                             
+
                                 if (element.Tipo == "Coordenador") {
                                     htmlDetalhamento += `<tr>                        
                                     <td class="font-bold">Coordenador: ${element.Nome}</td>                        
                                     <td class="equipante-fone">${element.Fone}</td>                                                
                                 </tr>`;
-                                  
+
                                 } else {
                                     htmlDetalhamento += `<tr>                        
                                     <td>${element.Nome}</td>                        
                                     <td class="equipante-fone">${element.Fone}</td>                                                
                                 </tr>`;
-                                }                               
+                                }
 
                                 equipe = element.Equipe;
                             } else {

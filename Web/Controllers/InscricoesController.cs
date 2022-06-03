@@ -134,7 +134,7 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult PostInscricao(PostInscricaoModel model)
         {
-            var evento = eventosBusiness.GetEventoAtivo();
+            var evento = eventosBusiness.GetEventoAtivo().FirstOrDefault();
             model.EventoId = model.EventoId > 0 ? model.EventoId : evento.Id;
 
             if (evento != null && participantesBusiness.GetParticipantesByEvento(model.EventoId).Where(x => x.Status != StatusEnum.Cancelado).Count() >= evento.Capacidade)
@@ -156,7 +156,7 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult VerificaCadastro(string Email)
         {
-            var participante = participantesBusiness.GetParticipantesByEvento(eventosBusiness.GetEventoAtivo().Id).FirstOrDefault(x => x.Email == Email && (new StatusEnum[] { StatusEnum.Confirmado, StatusEnum.Inscrito }).Contains(x.Status));
+            var participante = participantesBusiness.GetParticipantesByEvento(eventosBusiness.GetEventoAtivo().FirstOrDefault().Id).FirstOrDefault(x => x.Email == Email && (new StatusEnum[] { StatusEnum.Confirmado, StatusEnum.Inscrito }).Contains(x.Status));
 
             if (participante != null)
                 return Json(Url.Action("InscricaoConcluida", new { Id = participante.Id }));

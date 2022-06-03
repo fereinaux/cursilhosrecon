@@ -4,10 +4,15 @@ namespace Core.Models.Configuracao
 {
     public class PostConfiguracaoModel
     {
+        public int Id { get; set; }
         public int? LogoId { get; set; }
         public string Logo { get; set; }
         public int? BackgroundId { get; set; }
         public string Background { get; set; }
+        public int? LogoRelatorioId { get; set; }
+        public string LogoRelatorio { get; set; }
+        public int? BackgroundCelularId { get; set; }
+        public string BackgroundCelular { get; set; }
         public string Titulo { get; set; }
         public string CorBotao { get; set; }
         public string CorHoverBotao { get; set; }
@@ -15,7 +20,9 @@ namespace Core.Models.Configuracao
         public string CorScroll { get; set; }
         public string CorHoverScroll { get; set; }
         public TipoCirculoEnum TipoCirculoId { get; set; }
+        public TiposEventoEnum TiposEventoId { get; set; }
         public string TipoCirculo { get; set; }
+        public string TipoEvento { get; set; }
     }
 
     public class CamposModel

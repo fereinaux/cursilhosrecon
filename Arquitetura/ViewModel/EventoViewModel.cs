@@ -1,4 +1,5 @@
 ﻿using System;
+using Utils.Enums;
 
 namespace Arquitetura.ViewModels
 {
@@ -9,6 +10,7 @@ namespace Arquitetura.ViewModels
         public int? Capacidade { get; set; }
         public DateTime DataEvento { get; set; }
         public string TipoEvento { get; set; }
+        public TiposEventoEnum TipoEventoId { get; set; }
         public string Status { get; set; }
         public string Valor { get; set; }
         public int QtdAnexos { get; set; }

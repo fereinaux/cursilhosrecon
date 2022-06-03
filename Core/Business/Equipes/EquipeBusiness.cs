@@ -113,7 +113,7 @@ namespace Core.Business.Equipes
         {
             var evento = eventoRepository.GetById(eventoId);
 
-            return GetDescriptions<EquipesEnum>().Where(x => evento.TipoEvento.GetEquipes().Contains(x.Id));
+            return GetDescriptions<EquipesEnum>();
         }
 
         public IQueryable<EquipanteEvento> GetMembrosEquipe(int eventoId, EquipesEnum equipeId)

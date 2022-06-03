@@ -21,9 +21,9 @@ namespace Core.Business.Eventos
             eventoRepository.Save();
         }
 
-        public Evento GetEventoAtivo()
+        public IQueryable<Evento> GetEventoAtivo()
         {
-            return eventoRepository.GetAll().FirstOrDefault(e => e.Status == StatusEnum.Aberto);
+            return eventoRepository.GetAll(e => e.Status == StatusEnum.Aberto);
         }
 
         public Evento GetEventoById(int id)
@@ -72,25 +72,19 @@ namespace Core.Business.Eventos
             eventoRepository.Save();
         }
 
-        public bool ToggleEventoStatus(int id)
+        public void ToggleEventoStatus(int id)
         {
             Evento evento = eventoRepository.GetById(id);
 
             StatusEnum status = evento.Status == StatusEnum.Aberto ?
                 StatusEnum.Encerrado :
-                StatusEnum.Aberto;
-
-            if (GetEventoAtivo() != null &&
-                status == StatusEnum.Aberto)
-                return false;
+                StatusEnum.Aberto;         
 
             evento.Status = status;
 
             eventoRepository.Update(evento);
 
             eventoRepository.Save();
-
-            return true;
         }
     }
 }

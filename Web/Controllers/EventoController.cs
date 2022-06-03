@@ -73,12 +73,9 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult ToggleEventoStatus(int Id)
         {
-            if (eventosBusiness.ToggleEventoStatus(Id))
-            {
-                return new HttpStatusCodeResult(200);
-            }
+            eventosBusiness.ToggleEventoStatus(Id);
+            return new HttpStatusCodeResult(200);
 
-            return new HttpStatusCodeResult(400, Mensagens.EventoAberto);
 
         }
 

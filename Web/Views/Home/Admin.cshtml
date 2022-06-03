@@ -10,7 +10,7 @@
             <select class="form-control" id="eventoid" onchange="GetResultadosAdmin()">
                 @foreach (var evento in ViewBag.Eventos)
                 {
-                    <option value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
+                    <option data-tipoevento="@evento.TipoEventoId" value="@evento.Id">@evento.TipoEvento @evento.Numeracao.ToString()</option>
                 }
             </select>
         </div>

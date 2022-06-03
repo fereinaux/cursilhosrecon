@@ -89,7 +89,7 @@ namespace SysIgreja.Controllers
         [HttpPost]
         public ActionResult GetEquipes(int? EventoId)
         {
-            EventoId = EventoId ?? eventosBusiness.GetEventoAtivo().Id;
+            EventoId = EventoId ?? eventosBusiness.GetEventoAtivo().FirstOrDefault().Id;
             var result = equipesBusiness.GetEquipes(EventoId).Select(x => new ListaEquipesViewModel
             {
                 Id = x.Id,
@@ -163,7 +163,7 @@ namespace SysIgreja.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetMembrosEquipe(int EventoId, EquipesEnum EquipeId, bool Foto)
+        public ActionResult GetMembrosEquipe(int EventoId, EquipesEnum EquipeId, bool Foto = false)
         {
             var query = equipesBusiness
                 .GetMembrosEquipe(EventoId, EquipeId)

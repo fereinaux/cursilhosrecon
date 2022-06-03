@@ -114,7 +114,7 @@ ${GetButton('Pagamentos', JSON.stringify(row), 'verde', 'far fa-money-bill-alt',
                             </label>`: `<span style="font-size:18px" class="text-success p-l-xs pointer" onclick="toggleFoto(${data})"><i class="fa fa-camera" aria-hidden="true" title="Foto"></i></span>`
                         }
                             ${GetAnexosButton('Anexos', data, row.QtdAnexos)}
-                            ${GetIconWhatsApp(row.Fone)}
+                            <a target="_blank" href='https://api.whatsapp.com/send?phone=${row.Fone}' style="font-size:18px; color:green; " class="pointer p-l-xs"><i class="fab fa-whatsapp" aria-hidden="true" title="${row.Fone}"></i></a>
                             ${GetButton('EditParticipante', data, 'blue', 'fa-edit', 'Editar')}      
                          
                             ${GetButton('Opcoes', JSON.stringify(row), 'cinza', 'fas fa-info-circle', 'Opções')}
@@ -996,6 +996,14 @@ function GetParticipanteContato(id) {
             $(`#participante-restricaoalimentar`).val(data.Participante.RestricaoAlimentar);
             $(`#participante-medicacao`).val(data.Participante.Medicacao);
             $(`#participante-alergia`).val(data.Participante.Alergia);
+            $(`#participante-parente`).val(data.Participante.Parente);
+            $(`input[type=radio][name=participante-carona][value=${data.Participante.Carona}]`).iCheck('check');
+            if (data.Participante.Congregacao == 'Trindade' || data.Participante.Congregacao == 'Recon') {
+                $(`input[type=radio][name=participante-congregacao][value='${data.Participante.Congregacao}']`).iCheck('check');
+            } else {
+                $(`input[type=radio][name=participante-congregacao][value='Outra']`).iCheck('check');
+                $(`#participante-congregacaodescricao`).val(data.Participante.Congregacao);
+            }
             $(`input[type=radio][name=participante-sexo][value=${data.Participante.Sexo}]`).iCheck('check');
             $(`input[type=radio][name=participante-hasalergia][value=${data.Participante.HasAlergia}]`).iCheck('check');
             $(`input[type=radio][name=participante-hasmedicacao][value=${data.Participante.HasMedicacao}]`).iCheck('check');
@@ -1018,6 +1026,8 @@ function GetParticipante(id) {
                 $("#participante-id").val(data.Participante.Id);
                 $(`#participante-nome`).val(data.Participante.Nome);
                 $(`#participante-apelido`).val(data.Participante.Apelido);
+                $(`#participante-instagram`).val(data.Participante.Instagram);
+                $(`#participante-profissao`).val(data.Participante.Profissao);
                 $("#participante-data-nascimento").val(moment(data.Participante.DataNascimento).format('DD/MM/YYYY'));
                 $(`#participante-email`).val(data.Participante.Email);
                 $(`#participante-fone`).val(data.Participante.Fone);
@@ -1032,10 +1042,32 @@ function GetParticipante(id) {
                 $(`#participante-restricaoalimentar`).val(data.Participante.RestricaoAlimentar);
                 $(`#participante-medicacao`).val(data.Participante.Medicacao);
                 $(`#participante-alergia`).val(data.Participante.Alergia);
+                $(`#participante-parente`).val(data.Participante.Parente);
+                $(`input[type=radio][name=participante-carona][value=${data.Participante.Carona}]`).iCheck('check');
+                if (data.Participante.Congregacao == 'Trindade' || data.Participante.Congregacao == 'Recon') {
+                    $(`input[type=radio][name=participante-congregacao][value='${data.Participante.Congregacao}']`).iCheck('check');
+                } else {
+                    $(`input[type=radio][name=participante-congregacao][value='Outra']`).iCheck('check');
+                    $(`#participante-congregacaodescricao`).val(data.Participante.Congregacao);
+                    $('.congregacao').removeClass('d-none');
+                    $("#participante-congregacaodescricao").addClass('required');
+                }
                 $(`input[type=radio][name=participante-sexo][value=${data.Participante.Sexo}]`).iCheck('check');
+                $(`input[type=radio][name=participante-hasparente][value=${data.Participante.HasParente}]`).iCheck('check');
                 $(`input[type=radio][name=participante-hasalergia][value=${data.Participante.HasAlergia}]`).iCheck('check');
                 $(`input[type=radio][name=participante-hasmedicacao][value=${data.Participante.HasMedicacao}]`).iCheck('check');
                 $(`input[type=radio][name=participante-hasrestricaoalimentar][value=${data.Participante.HasRestricaoAlimentar}]`).iCheck('check');
+                $(`#participante-cep`).val(data.Participante.CEP);
+                $(`#participante-logradouro`).val(data.Participante.Logradouro);
+                $(`#participante-bairro`).val(data.Participante.Bairro);
+                $(`#participante-cidade`).val(data.Participante.Cidade);
+                $(`#participante-estado`).val(data.Participante.Estado);
+                $(`#participante-numero`).val(data.Participante.Numero);
+                $(`#participante-complemento`).val(data.Participante.Complemento);
+                $(`#participante-referencia`).val(data.Participante.Referencia);
+
+                $(`#participante-latitude`).val((data.Participante.Latitude || '').replaceAll(',', '.'));
+                $(`#participante-longitude`).val((data.Participante.Longitude || '').replaceAll(',', '.'));
 
                 $("#participante-numeracao").val(data.Participante.Numeracao);
             }
@@ -1051,6 +1083,8 @@ function GetParticipante(id) {
         $(`#participante-restricaoalimentar`).val("");
         $(`#participante-medicacao`).val("");
         $(`#participante-alergia`).val("");
+        $(`#participante-instagram`).val("");
+        $(`#participante-profissao`).val("");
         $(`#participante-nomepai`).val("");
         $(`#participante-fonepai`).val("");
         $(`#participante-nomemae`).val("");
@@ -1060,6 +1094,7 @@ function GetParticipante(id) {
         $(`#participante-nomecontato`).val("");
         $(`#participante-fonecontato`).val("");
         $(`input[type=radio][name=participante-sexo][value=1]`).iCheck('check');
+        $(`input[type=radio][name=participante-carona][value=false]`).iCheck('check');
         $(`input[type=radio][name=participante-hasalergia][value=false]`).iCheck('check');
         $(`input[type=radio][name=participante-hasmedicacao][value=false]`).iCheck('check');
         $(`input[type=radio][name=participante-hasrestricaoalimentar][value=false]`).iCheck('check');
@@ -1082,27 +1117,41 @@ function PostParticipante() {
             data: JSON.stringify(
                 {
                     Id: $("#participante-id").val(),
-                    EventoId: $("#participante-eventoid").val(),
+                    Checkin: $("#participante-checkin").val(),
+                    CancelarCheckin: false,
+                    Carona: $("input[type=radio][name=participante-carona]:checked").val(),
+                    Profissao: $(`#participante-profissao`).val(),
+                    Instagram: $(`#participante-instagram`).val(),
                     Nome: $(`#participante-nome`).val(),
                     Apelido: $(`#participante-apelido`).val(),
                     DataNascimento: moment($("#participante-data-nascimento").val(), 'DD/MM/YYYY', 'pt-br').toJSON(),
                     Email: $(`#participante-email`).val(),
                     Fone: $(`#participante-fone`).val(),
-                    NomePai: $(`#participante-nomepai`).val(),
-                    FonePai: $(`#participante-fonepai`).val(),
-                    NomeMae: $(`#participante-nomemae`).val(),
-                    FoneMae: $(`#participante-fonemae`).val(),
-                    NomeConvite: $(`#participante-nomeconvite`).val(),
-                    FoneConvite: $(`#participante-foneconvite`).val(),
-                    NomeContato: $(`#participante-nomecontato`).val(),
-                    FoneContato: $(`#participante-fonecontato`).val(),
+                    CEP: $(`#participante-cep`).val(),
+                    Logradouro: $(`#participante-logradouro`).val(),
+                    Bairro: $(`#participante-bairro`).val(),
+                    Cidade: $(`#participante-cidade`).val(),
+                    Estado: $(`#participante-estado`).val(),
+                    Numero: $(`#participante-numero`).val(),
+                    Complemento: $(`#participante-complemento`).val(),
+                    Referencia: $(`#participante-referencia`).val(),
+                    Latitude: $(`#participante-latitude`).val(),
+                    Longitude: $(`#participante-longitude`).val(),
                     HasRestricaoAlimentar: $("input[type=radio][name=participante-hasrestricaoalimentar]:checked").val(),
                     RestricaoAlimentar: $(`#participante-restricaoalimentar`).val(),
                     HasMedicacao: $("input[type=radio][name=participante-hasmedicacao]:checked").val(),
                     Medicacao: $(`#participante-medicacao`).val(),
                     HasAlergia: $("input[type=radio][name=participante-hasalergia]:checked").val(),
                     Alergia: $(`#participante-alergia`).val(),
-                    Sexo: $("input[type=radio][name=participante-sexo]:checked").val()
+                    Sexo: $("input[type=radio][name=participante-sexo]:checked").val(),
+                    NomePai: $(`#participante-nome-pai`).val(),
+                    FonePai: $(`#participante-fone-pai`).val(),
+                    NomeMae: $(`#participante-nome-mae`).val(),
+                    FoneMae: $(`#participante-fone-mae`).val(),
+                    NomeConvite: $(`#participante-nome-convite`).val(),
+                    FoneConvite: $(`#participante-fone-convite`).val(),
+                    NomeContato: $(`#participante-nome-contato`).val(),
+                    FoneContato: $(`#participante-fone-contato`).val(),
                 }),
             success: function () {
                 SuccessMesageOperation();
@@ -1113,6 +1162,32 @@ function PostParticipante() {
     }
 }
 
+
+
+$('#has-parente').on('ifChecked', function (event) {
+    $('.parente').removeClass('d-none');
+    $("#participante-parente").addClass('required');
+});
+
+$('#not-parente').on('ifChecked', function (event) {
+    $('.parente').addClass('d-none');
+    $("#participante-parente").removeClass('required');
+});
+
+$('#trindade').on('ifChecked', function (event) {
+    $('.congregacao').addClass('d-none');
+    $("#participante-congregacaodescricao").removeClass('required');
+});
+
+$('#recon').on('ifChecked', function (event) {
+    $('.congregacao').addClass('d-none');
+    $("#participante-congregacaodescricao").removeClass('required');
+});
+
+$('#outra').on('ifChecked', function (event) {
+    $('.congregacao').removeClass('d-none');
+    $("#participante-congregacaodescricao").addClass('required');
+});
 
 $('#has-medicacao').on('ifChecked', function (event) {
     $('.medicacao').removeClass('d-none');

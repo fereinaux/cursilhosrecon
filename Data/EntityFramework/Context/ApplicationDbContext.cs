@@ -122,16 +122,6 @@ namespace Data.Context
                 .WithMany()
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Circulo>()
-                .HasOptional<EquipanteEvento>(c => c.Dirigente1)
-                .WithMany()
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Circulo>()
-                .HasOptional<EquipanteEvento>(c => c.Dirigente2)
-                .WithMany()
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<EquipanteEvento>()
                 .HasOptional<Evento>(e => e.Evento)
                 .WithOptionalDependent()
@@ -141,6 +131,9 @@ namespace Data.Context
                .HasOptional<Evento>(q => q.Evento)
                .WithOptionalDependent()
                .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Circulo>()
+            //    .HasMany(x => x.Dirigentes);
 
             modelBuilder.Entity<Participante>()
                 .HasMany(x => x.Arquivos);

@@ -64,7 +64,7 @@
                                 @if (ViewBag.Campos.Contains(CamposEnum.Apelido.GetDescription()))
                                 {
                                     <div class="form-group">
-                                        <label for="participante-apelido" class="text-white">Como o Participante gostaria de ser chamado no Realidade?</label>
+                                        <label for="participante-apelido" class="text-white">Como o Participante gostaria de ser chamado no Cursilho?</label>
                                         <input type="text" class="form-control required" id="participante-apelido" name"nickname" data-field="Apelido" />
                                     </div>
                                 }
@@ -95,6 +95,27 @@
                                     <div class="form-group">
                                         <label for="participante-instagram" class="text-white">Instagram do Participante</label>
                                         <input type="text" class="form-control" id="participante-instagram" data-field="Instagram do Participante" />
+                                    </div>
+                                }
+                                @if (ViewBag.Campos.Contains(CamposEnum.Profissao.GetDescription()))
+                                {
+                                    <div class="form-group">
+                                        <label for="participante-profissao" class="text-white">Profissão do Participante</label>
+                                        <input type="text" class="form-control" id="participante-profissao" data-field="Profissão do Participante" />
+                                    </div>
+                                }
+                                @if (ViewBag.Campos.Contains(CamposEnum.Camisa.GetDescription()))
+                                {
+                                    <div class="form-group">
+                                        <label for="participante-fone" class="text-white">Tamanho da Camisa</label>
+                                        <select class="form-control" id="participante-camisa">
+                                            <option value="PP">PP</option>
+                                            <option value="P">P</option>
+                                            <option value="M">M</option>
+                                            <option value="G">G</option>
+                                            <option value="GG">GG</option>
+                                            <option value="XGG">XGG</option>
+                                        </select>
                                     </div>
                                 }
                                 @if (ViewBag.Campos.Contains(CamposEnum.Endereco.GetDescription()))
@@ -229,6 +250,16 @@
                                     </div>
                                 }
 
+                                @if (ViewBag.Campos.Contains(CamposEnum.Onibus.GetDescription()))
+                                {
+                                    <div class="form-group">
+                                        <label for="participante-carona" class="text-white block">Irá no Ônibus saindo da Igreja?</label>
+                                        <div class="radio i-checks-brown inline"><label class="text-white"> <input type="radio" id="sim" checked="" value="true" name="participante-carona"> <i></i> Sim </label></div>
+                                        <div class="radio i-checks-brown inline p-l-xs"><label class="text-white"> <input type="radio" id="nao" checked="" value="false" name="participante-carona"> <i></i> Não </label></div>
+                                    </div>
+
+                                }
+
                                 @if (ViewBag.Campos.Contains(CamposEnum.Medicacao.GetDescription()))
                                 {
                                     <div class="form-group">
@@ -297,13 +328,24 @@
 <script src="~/Scripts/app/Util/mapa.js"></script>
 
 <script src="~/Scripts/app/Inscricoes/inscricoes.js?@ViewBag.Numero"></script>
+<script src="https://malsup.github.io/jquery.blockUI.js"></script>
 
 <script>
+    let corBotao = '@ViewBag.Configuracao.CorBotao'
     $(document).ready(function () {
-        @if (ViewBag.Configuracao.BackgroundId != null)
-        {
-            <text> $('.background-evento').css('background', `url(data:image/jpeg;base64,@ViewBag.Configuracao.Background) no-repeat center center fixed`) </text>
-            <text> $('.background-evento').css('background-size', 'cover')</text>
+         if (isMobile) {
+            @if (ViewBag.Configuracao.BackgroundCelularId != null)
+            {
+                <text> $('.background-evento').css('background', `url(data:image/jpeg;base64,@ViewBag.Configuracao.BackgroundCelular) no-repeat center center fixed`) </text>
+                <text> $('.background-evento').css('background-size', 'cover')</text>
+            }
+        } else {
+
+            @if (ViewBag.Configuracao.BackgroundId != null)
+            {
+                <text> $('.background-evento').css('background', `url(data:image/jpeg;base64,@ViewBag.Configuracao.Background) no-repeat center center fixed`) </text>
+                <text> $('.background-evento').css('background-size', 'cover')</text>
+            }
         }
 
         $('.btn-juventude').css('background-color', '@ViewBag.Configuracao.CorBotao')

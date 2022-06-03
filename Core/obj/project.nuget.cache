@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mKRYPKYSIzrddyDyKeKyV1TxKb/XJseSU9Q1R/G3HwmQwSR35EOZDL/6/7+syBToWG2YXVHYdToiCK8JYReyNQ==",
+  "dgSpecHash": "JOMDfXEAiIjcxPuC+kGOvMAxOLuefyYzMK0ePC/kxr3NA2wF1Fz7tgFMX+Id0K5BtGExU5iqkGLQMVQGa1u7lA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\source\\repos\\ejc\\Core\\Core.csproj",
+  "projectFilePath": "C:\\Users\\User\\source\\repos\\cursilhosrecon\\Core\\Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\epplus\\4.5.3.2\\epplus.4.5.3.2.nupkg.sha512",

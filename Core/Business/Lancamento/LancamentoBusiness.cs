@@ -60,7 +60,7 @@ namespace Core.Business.Lancamento
                 centCusto = (int)CentroCustoPadraoEnum.TaxaEquipante;
             }
 
-            var evento = eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First();
+            var evento = eventosBusiness.GetEventoAtivo().FirstOrDefault() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First();
 
             Data.Entities.Lancamento lancamento = new Data.Entities.Lancamento
             {
@@ -98,7 +98,7 @@ namespace Core.Business.Lancamento
 
         public IQueryable<Data.Entities.Lancamento> GetPagamentosEquipante(int equipanteId)
         {
-            var evento = eventosBusiness.GetEventoAtivo() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First();
+            var evento = eventosBusiness.GetEventoAtivo().FirstOrDefault() ?? eventosBusiness.GetEventos().OrderByDescending(x => x.DataEvento).First();
 
             return lancamentoRepository.GetAll(x => x.EquipanteId == equipanteId && x.EventoId == evento.Id)
                 .Include(x => x.CentroCusto)

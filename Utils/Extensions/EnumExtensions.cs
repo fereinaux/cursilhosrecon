@@ -64,7 +64,7 @@ namespace Utils.Extensions
             return null;
         }
 
-        public static int[] GetEquipes<T>(this T e) where T : IConvertible
+        public static SexoEnum GetGenero<T>(this T e) where T : IConvertible
         {
             if (e is Enum)
             {
@@ -76,73 +76,19 @@ namespace Utils.Extensions
                     if (val == e.ToInt32(CultureInfo.InvariantCulture))
                     {
                         var memInfo = type.GetMember(type.GetEnumName(val));
-                        var equipesAttribute = memInfo[0]
-                            .GetCustomAttributes(typeof(EquipesAttribute), false)
-                            .FirstOrDefault() as EquipesAttribute;
+                        var generoAttribute = memInfo[0]
+                            .GetCustomAttributes(typeof(GeneroAttribute), false)
+                            .FirstOrDefault() as GeneroAttribute;
 
-                        if (equipesAttribute != null)
+                        if (generoAttribute != null)
                         {
-                            return equipesAttribute.Equipes;
+                            return generoAttribute.Genero;
                         }
                     }
                 }
             }
 
-            return null;
-        }
-
-        public static string GetEmailPagseguro<T>(this T e) where T : IConvertible
-        {
-            if (e is Enum)
-            {
-                Type type = e.GetType();
-                Array values = System.Enum.GetValues(type);
-
-                foreach (int val in values)
-                {
-                    if (val == e.ToInt32(CultureInfo.InvariantCulture))
-                    {
-                        var memInfo = type.GetMember(type.GetEnumName(val));
-                        var emailPagSeguroAttribute = memInfo[0]
-                            .GetCustomAttributes(typeof(EmailPagSeguroAttribute), false)
-                            .FirstOrDefault() as EmailPagSeguroAttribute;
-
-                        if (emailPagSeguroAttribute != null)
-                        {
-                            return emailPagSeguroAttribute.EmailPagSeguro;
-                        }
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        public static string GetTokenPagseguro<T>(this T e) where T : IConvertible
-        {
-            if (e is Enum)
-            {
-                Type type = e.GetType();
-                Array values = System.Enum.GetValues(type);
-
-                foreach (int val in values)
-                {
-                    if (val == e.ToInt32(CultureInfo.InvariantCulture))
-                    {
-                        var memInfo = type.GetMember(type.GetEnumName(val));
-                        var tokenPagSeguroAttribute = memInfo[0]
-                            .GetCustomAttributes(typeof(TokenPagSeguroAttribute), false)
-                            .FirstOrDefault() as TokenPagSeguroAttribute;
-
-                        if (tokenPagSeguroAttribute != null)
-                        {
-                            return tokenPagSeguroAttribute.TokenPagSeguro;
-                        }
-                    }
-                }
-            }
-
-            return null;
+            return SexoEnum.Masculino;
         }
 
         public static T GetEnumValueFromDescription<T>(string description)

@@ -44,8 +44,10 @@ namespace Core.Models.Participantes
         public string FoneConvite { get; set; }
         public string NomeContato { get; set; }
         public string FoneContato { get; set; }
+        public string Profissao { get; set; }
         public bool PendenciaContato { get; set; }
         public bool Boleto { get; set; }
+        public bool Carona { get; set; }
         public bool PendenciaBoleto { get; set; }
         public string Status { get; set; }
         public bool MsgPagamento { get; set; }
